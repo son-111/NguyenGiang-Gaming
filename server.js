@@ -5,7 +5,6 @@
 import express from "express";
 import cors from "cors";
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -17,9 +16,34 @@ app.use((req, res, next) => {
   next();
 });
 
-// ⚙️ Config Supabase
-const SUPABASE_URL = "https://abgnchsptmyexjlqzxxt.supabase.co/rest/v1";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiZ25jaHNwdG15ZXhqbHF6eHh0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTk4ODI5NSwiZXhwIjoyMDc1NTY0Mjk1fQ.assCRdIhj94A-vbFxM4qPxeeaTSd44RJHfTJbIm0GOM"; // service_role key của bạn
+// ======================================================
+// 🛡️ Log và chặn truy cập ngoài domain cho API
+// ======================================================
+app.use((req, res, next) => {
+  console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
+  next();
+});
+
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "https://nguyengiang-gaming-pf90.onrender.com",
+    "http://localhost:3000"
+  ];
+  const origin = req.headers.origin;
+  if (origin && !allowedOrigins.includes(origin)) {
+    return res.status(403).json({ error: "Forbidden - Không có quyền truy cập" });
+  }
+  next();
+});
+
+// ======================================================
+// ⚙️ Config Supabase (Ẩn key bằng biến môi trường)
+// ======================================================
+const SUPABASE_URL =
+  process.env.SUPABASE_URL || "https://sblbnucttjbynhjhtsej.supabase.co/rest/v1";
+const SUPABASE_KEY =
+  process.env.SUPABASE_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNibGJudWN0dGpieW5oamh0c2VqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTk1NTE1MiwiZXhwIjoyMDc1NTMxMTUyfQ.MgfB0g6O_kkGxIsMoib0f9nH9NOo3MMHdqVlJ397MDk"; // service_role key của bạn
 
 // ======================================================
 // 📥 API LẤY DỮ LIỆU
@@ -33,6 +57,7 @@ app.get("/api/data", async (req, res) => {
       },
     });
 
+    if (!resp.ok) throw new Error("Supabase GET failed");
     const data = await resp.json();
 
     if (data.length > 0) {
@@ -51,6 +76,8 @@ app.get("/api/data", async (req, res) => {
 // ======================================================
 app.post("/api/data", async (req, res) => {
   try {
+    if (!req.body) return res.status(400).json({ error: "Thiếu dữ liệu gửi lên" });
+
     // Lấy dữ liệu cũ
     const respOld = await fetch(`${SUPABASE_URL}/store?id=eq.main&select=*`, {
       headers: {
@@ -93,10 +120,15 @@ app.post("/api/data", async (req, res) => {
 });
 
 // ======================================================
-// 🧾 API DEBUG
+// 🧾 API DEBUG (ẩn sau mật khẩu)
 // ======================================================
 app.get("/api/debug", async (req, res) => {
   try {
+    // 🔑 Chỉ admin có thể xem debug (ví dụ ?key=admin123)
+    if (req.query.key !== "admin123") {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+
     const resp = await fetch(`${SUPABASE_URL}/store?id=eq.main&select=*`, {
       headers: {
         apikey: SUPABASE_KEY,
@@ -118,4 +150,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
   console.log(`✅ Server chạy tại: http://localhost:${PORT}`)
 );
-
