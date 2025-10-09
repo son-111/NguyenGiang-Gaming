@@ -18,8 +18,8 @@ app.use((req, res, next) => {
 });
 
 // ⚙️ Config Supabase
-const SUPABASE_URL = "https://sblbnucttjbynhjhtsej.supabase.co/rest/v1";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNibGJudWN0dGpieW5oamh0c2VqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTk1NTE1MiwiZXhwIjoyMDc1NTMxMTUyfQ.MgfB0g6O_kkGxIsMoib0f9nH9NOo3MMHdqVlJ397MDk"; // service_role key của bạn
+const SUPABASE_URL = "https://abgnchsptmyexjlqzxxt.supabase.co/rest/v1";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiZ25jaHNwdG15ZXhqbHF6eHh0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTk4ODI5NSwiZXhwIjoyMDc1NTY0Mjk1fQ.assCRdIhj94A-vbFxM4qPxeeaTSd44RJHfTJbIm0GOM"; // service_role key của bạn
 
 // ======================================================
 // 📥 API LẤY DỮ LIỆU
@@ -118,3 +118,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
   console.log(`✅ Server chạy tại: http://localhost:${PORT}`)
 );
+
