@@ -156,11 +156,22 @@ togglePass?.addEventListener("click", () => {
       : '<i class="fa-solid fa-eye"></i>';
 });
 
+// ======================================================
+// 💾 Hiển thị nút Lưu khi có thay đổi
+// ======================================================
+function showSaveButton() {
+  saveAllBtn.style.display = "block";
+}
+
+// ======================================================
+// Sau khi đăng nhập
+// ======================================================
 function afterLogin() {
   loginModal.style.display = "none";
   loginMsg.textContent = "";
   enableTextEditing();
   enablePriceEditing();
+  saveAllBtn.style.display = "block";
 }
 
 // ======================================================
@@ -205,7 +216,7 @@ function enablePriceEditing() {
         currentPriceEl.dataset.editId;
       currentPriceEl.textContent = newPrice;
       hasChanges = true;
-      showSaveButton();
+      showSaveButton(); // ✅ Đã có hàm, không còn lỗi
     }
     closeModal();
   });
@@ -253,7 +264,7 @@ function enableTextEditing() {
           el.contentEditable = "false";
           el.style.outline = "none";
           hasChanges = true;
-          showSaveButton();
+          showSaveButton(); // ✅ Đã có hàm, không còn lỗi
         },
         { once: true }
       );
@@ -262,24 +273,10 @@ function enableTextEditing() {
 }
 
 // ======================================================
-// 💾 Hiển thị nút Lưu khi có thay đổi
-// ======================================================
-function afterLogin() {
-  loginModal.style.display = "none";
-  loginMsg.textContent = "";
-  enableTextEditing();
-  enablePriceEditing();
-
-  // 🆕 Hiện nút Lưu ngay sau khi đăng nhập
-  saveAllBtn.style.display = "block";
-}
-
-// ======================================================
 // 💾 Lưu toàn bộ thay đổi (cả chữ và giá)
 // ======================================================
 saveAllBtn.addEventListener("click", async () => {
   try {
-    // Gom toàn bộ giá hiện tại
     const items = {};
     document.querySelectorAll(".price").forEach((el) => {
       const itemKey =
@@ -287,39 +284,32 @@ saveAllBtn.addEventListener("click", async () => {
       items[itemKey] = el.textContent.trim();
     });
 
-    // Gom toàn bộ text hiện tại
     const texts = {};
     document.querySelectorAll("[data-edit-id]").forEach((el) => {
       texts[el.dataset.editId] = el.textContent.trim();
     });
 
-    // Cập nhật dữ liệu tổng
     currentData.items = items;
     currentData.texts = texts;
 
-    // Lưu lên server
     await saveDataToServer(currentData);
 
-    // 🔄 Reload lại từ server để chắc chắn đồng bộ
     const newData = await getDataFromServer();
     if (newData) {
       currentData = newData;
-
-      // Cập nhật lại trạng thái ONLINE / OFFLINE
       setStatus(newData.status);
 
-      // Cập nhật lại giá
       if (newData.items) {
         document.querySelectorAll(".price").forEach((el) => {
           const itemKey =
-            el.previousElementSibling?.textContent.trim() || el.dataset.editId;
+            el.previousElementSibling?.textContent.trim() ||
+            el.dataset.editId;
           if (newData.items[itemKey]) {
             el.textContent = newData.items[itemKey];
           }
         });
       }
 
-      // Cập nhật lại chữ
       if (newData.texts) {
         for (const [key, value] of Object.entries(newData.texts)) {
           const el = document.querySelector(`[data-edit-id='${key}']`);
@@ -328,8 +318,8 @@ saveAllBtn.addEventListener("click", async () => {
       }
     }
 
-    // Reset trạng thái thay đổi
     hasChanges = false;
+    saveAllBtn.style.display = "none";
     showCustomAlert("✅ Đã lưu thay đổi thành công!");
   } catch (err) {
     console.error("❌ Lỗi khi lưu dữ liệu:", err);
