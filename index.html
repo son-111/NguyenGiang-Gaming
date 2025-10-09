@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bảng Thu Mua - NguyenGiang Gaming</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1 class="game-title" data-edit-id="title_main">Path Of Exile 1 - 2</h1>
+    <p class="subtitle" data-edit-id="subtitle_1">NguyenGiang Gaming</p>
+    <p class="subtitle" data-edit-id="subtitle_2">Uy tín - Nhanh chóng - Giá tốt</p>
+    <div class="datetime-box">
+      <div id="datetime"></div>
+    </div>
+    <nav class="navbar">
+      <div class="status" id="statusBox">🔴 OFFLINE</div>
+    </nav>
+  </header>
+
+  <!-- Nút lưu -->
+  <button id="saveAllBtn">💾 Lưu thay đổi</button>
+
+  <!-- Modal đăng nhập -->
+  <div class="login-modal" id="loginModal" style="display:none">
+    <div class="login-box">
+      <h2>🔐 Admin Login</h2>
+      <div class="input-group">
+        <input type="text" id="username" placeholder="Username">
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password">
+        <span class="toggle-pass" id="togglePass"><i class="fa-solid fa-eye"></i></span>
+      </div>
+      <button id="submitLogin">Đăng nhập</button>
+      <button id="closeLogin" class="close-btn">Đóng</button>
+      <p id="loginMsg"></p>
+    </div>
+  </div>
+
+  <!-- Custom Alert -->
+  <div id="customAlert" class="hidden">
+    <div class="alert-box">
+      <span id="alertMessage"></span>
+    </div>
+  </div>
+
+  <!-- Modal chỉnh giá -->
+  <div class="price-modal" id="priceModal" style="display:none">
+    <div class="price-box">
+      <h2>Chỉnh Giá</h2>
+      <p id="priceItemName"></p>
+      <input type="text" id="newPriceInput" placeholder="Nhập giá mới...">
+      <div class="price-btns">
+        <button id="savePrice">Lưu</button>
+        <button id="cancelPrice">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danh sách sản phẩm -->
+  <section class="section">
+    <h2 data-edit-id="section_1">Rise of the Abyssal</h2>
+    <div class="items">
+      <div class="card">
+        <h3 data-edit-id="card1_title">Path Of Exile 2</h3>
+        <p class="item" data-edit-id="item_chao2">Chao Orb</p>
+        <p class="price" data-edit-id="price_chao2">inbox</p>
+      </div>
+      <div class="card">
+        <h3 data-edit-id="card2_title">Path Of Exile 2</h3>
+        <p class="item" data-edit-id="item_exalted2">Exalted Orb</p>
+        <p class="price" data-edit-id="price_exalted2">inbox</p>
+      </div>
+      <div class="card">
+        <h3 data-edit-id="card3_title">Path Of Exile 2</h3>
+        <p class="item" data-edit-id="item_divine2">Divine Orb</p>
+        <p class="price" data-edit-id="price_divine2">2.200đ</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 data-edit-id="section_2">Secrets of the atlas</h2>
+    <div class="items">
+      <div class="card">
+        <h3 data-edit-id="card4_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_divine1">Divine Orb</p>
+        <p class="price" data-edit-id="price_divine1">inbox</p>
+      </div>
+      <div class="card">
+        <h3 data-edit-id="card5_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_chao1">Chao Orb</p>
+        <p class="price" data-edit-id="price_chao1">inbox</p>
+      </div>
+      <div class="card">
+        <h3 data-edit-id="card6_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_mirror1">Mirror of Kalandra</p>
+        <p class="price" data-edit-id="price_mirror1">inbox</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 data-edit-id="section_2">Secrets of the atlas</h2>
+    <div class="items">
+      <div class="card">
+        <h3 data-edit-id="card4_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_divine1">Divine Orb</p>
+        <p class="price" data-edit-id="price_divine1">inbox</p>
+      </div>
+      <div class="card">
+        <h3 data-edit-id="card5_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_chao1">Chao Orb</p>
+        <p class="price" data-edit-id="price_chao1">inbox</p>
+      </div>
+      <div class="card">
+        <h3 data-edit-id="card6_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_mirror1">Mirror of Kalandra</p>
+        <p class="price" data-edit-id="price_mirror1">inbox</p>
+      </div>
+    </div>
+  </section> 
+
+  <!-- Box giao dịch -->
+  <section class="trade-container">
+    <div class="trade-box">
+      <h2 data-edit-id="trade_title1">Phương thức giao dịch</h2>
+      <details>
+        <summary>Tài khoản ngân hàng</summary>
+        <ul>
+          <li>MB Bank</li>
+          <li data-edit-id="bank_name">Tên tài khoản: Nguyễn Trường Giang</li>
+          <li data-edit-id="bank_stk">STK: 11111333555559</li>
+        </ul>
+      </details>
+    </div>
+    <div class="trade-box">
+  <h2 data-edit-id="trade_title2">Lưu ý giao dịch</h2>
+
+  <details>
+    <summary>Chúng tôi chỉ giao dịch với khách hàng đáng tin cậy</summary>
+    <ul>
+      <li data-edit-id="note1">Kiểm tra tài khoản, nhân vật, và vật phẩm trước khi trao đổi</li>
+      <li data-edit-id="note2">Bên mình sau tuần đầu tiên sẽ sử dụng account level 90 + lab</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Thông tin minh bạch và rõ ràng</summary>
+    <ul>
+      <li data-edit-id="note3">Luôn gửi link trade, hình ảnh vật phẩm trước khi giao dịch</li>
+      <li data-edit-id="note4">Đồng ý giờ giao dịch cụ thể để tránh nhầm lẫn hoặc tranh chấp</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Bảo vệ quyền lợi khách hàng</summary>
+    <ul>
+      <li data-edit-id="note5">Không yêu cầu mật khẩu hay thông tin nhạy cảm</li>
+      <li data-edit-id="note6">Chụp hình stash trước và sau giao dịch làm bằng chứng</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Giao tiếp lịch sự, tôn trọng và an toàn</summary>
+    <ul>
+      <li data-edit-id="note7">Không dùng từ ngữ nhạy cảm về mua bán currency ngoài game</li>
+      <li data-edit-id="note8">Ưu tiên giao dịch qua Discord/Facebook đáng tin cậy</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Lời khuyên riêng</summary>
+    <ul>
+      <li data-edit-id="note9">Luôn kiểm tra kỹ trước khi giao dịch và giữ bình tĩnh</li>
+      <li data-edit-id="note10">Đồ trong game có thể kiếm lại, niềm tin và an toàn là quan trọng nhất</li>
+    </ul>
+  </details>
+  </div>
+  </div> <!-- đóng trade-box cuối cùng -->
+</section> <!-- đóng trade-container -->
+  <footer>
+    <h2 data-edit-id="contact_title">Thông tin liên hệ</h2>
+    <div class="contact">
+      <a href="https://www.facebook.com/nguyen.giang.365837" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"> Facebook
+      </a>
+      <a href="https://discord.gg/VHbncYpN" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"> Discord
+      </a>
+      <a>
+        <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Phone"> 0947313890
+      </a>
+    </div>
+    <p>© 2025 NguyenGiang Gaming - Liên hệ qua Facebook/Discord/Gmail</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
