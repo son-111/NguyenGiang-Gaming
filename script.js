@@ -14,7 +14,7 @@ const loginMsg = document.getElementById("loginMsg");
 const togglePass = document.getElementById("togglePass");
 const passwordInput = document.getElementById("password");
 
-const API_URL = "/api/data"; // Dùng local hoặc deploy URL
+const API_URL = "https://nguyengiang-gaming-pf90.onrender.com/api/data"; // Dùng local hoặc deploy URL
 
 let currentData = {};
 let editingItem = "";
