@@ -1,9 +1,5 @@
-// ======================================================
-// 🧩 NguyenGiang Gaming - Script chỉnh giá & chữ (admin)
-// ======================================================
-
 let adminLevel = 0;
-let hasChanges = false; // 🆕 Theo dõi có thay đổi chữ hoặc giá
+let hasChanges = false;
 
 const statusBox = document.getElementById("statusBox");
 const saveAllBtn = document.getElementById("saveAllBtn");
@@ -14,14 +10,11 @@ const loginMsg = document.getElementById("loginMsg");
 const togglePass = document.getElementById("togglePass");
 const passwordInput = document.getElementById("password");
 
-const API_URL = "https://nguyengiang-gaming-pf90.onrender.com/api/data"; // Dùng local hoặc deploy URL
+const API_URL = "https://nguyengiang-gaming-pf90.onrender.com/api/data";
 
 let currentData = {};
 let editingItem = "";
 
-// ======================================================
-// 🕒 Cập nhật thời gian thực
-// ======================================================
 function updateDateTime() {
   const now = new Date();
   document.getElementById("datetime").textContent = now.toLocaleString("vi-VN");
@@ -29,9 +22,6 @@ function updateDateTime() {
 setInterval(updateDateTime, 1000);
 updateDateTime();
 
-// ======================================================
-// 📥 Lấy dữ liệu từ server
-// ======================================================
 async function getDataFromServer() {
   try {
     const res = await fetch(API_URL, { cache: "no-store" });
@@ -42,9 +32,6 @@ async function getDataFromServer() {
   }
 }
 
-// ======================================================
-// 💾 Gửi dữ liệu lên server
-// ======================================================
 async function saveDataToServer(data) {
   try {
     const res = await fetch(API_URL, {
@@ -60,9 +47,6 @@ async function saveDataToServer(data) {
   }
 }
 
-// ======================================================
-// 🟢 Hiển thị trạng thái ONLINE / OFFLINE
-// ======================================================
 function setStatus(state) {
   if (state === "ONLINE") {
     statusBox.textContent = "🟢 ONLINE";
@@ -73,9 +57,6 @@ function setStatus(state) {
   }
 }
 
-// ======================================================
-// 🚀 Khi tải trang
-// ======================================================
 window.addEventListener("load", async () => {
   const data = await getDataFromServer();
   currentData = data || { status: "ONLINE", items: {}, texts: {} };
@@ -84,7 +65,6 @@ window.addEventListener("load", async () => {
     setStatus(data.status);
   }
 
-  // 💰 Hiển thị giá
   if (data && data.items) {
     for (const [key, price] of Object.entries(data.items)) {
       document.querySelectorAll(".price").forEach((el) => {
@@ -95,7 +75,6 @@ window.addEventListener("load", async () => {
     }
   }
 
-  // 📝 Hiển thị chữ
   if (data && data.texts) {
     for (const [key, value] of Object.entries(data.texts)) {
       const el = document.querySelector(`[data-edit-id='${key}']`);
@@ -104,9 +83,6 @@ window.addEventListener("load", async () => {
   }
 });
 
-// ======================================================
-// 🟢 Click đổi trạng thái
-// ======================================================
 statusBox.addEventListener("click", async () => {
   if (adminLevel === 0) {
     loginModal.style.display = "flex";
@@ -119,9 +95,6 @@ statusBox.addEventListener("click", async () => {
   }
 });
 
-// ======================================================
-// 🔐 Xử lý đăng nhập
-// ======================================================
 closeLogin.addEventListener("click", () => {
   loginModal.style.display = "none";
   loginMsg.textContent = "";
@@ -156,16 +129,10 @@ togglePass?.addEventListener("click", () => {
       : '<i class="fa-solid fa-eye"></i>';
 });
 
-// ======================================================
-// 💾 Hiển thị nút Lưu khi có thay đổi
-// ======================================================
 function showSaveButton() {
   saveAllBtn.style.display = "block";
 }
 
-// ======================================================
-// Sau khi đăng nhập
-// ======================================================
 function afterLogin() {
   loginModal.style.display = "none";
   loginMsg.textContent = "";
@@ -174,10 +141,6 @@ function afterLogin() {
   saveAllBtn.style.display = "block";
 }
 
-// ======================================================
-// 💰 Chỉnh giá vật phẩm
-// ======================================================
-function enablePriceEditing() {
   const priceModal = document.getElementById("priceModal");
   const priceItemName = document.getElementById("priceItemName");
   const newPriceInput = document.getElementById("newPriceInput");
@@ -216,7 +179,7 @@ function enablePriceEditing() {
         currentPriceEl.dataset.editId;
       currentPriceEl.textContent = newPrice;
       hasChanges = true;
-      showSaveButton(); // ✅ Đã có hàm, không còn lỗi
+      showSaveButton();
     }
     closeModal();
   });
@@ -233,9 +196,6 @@ function enablePriceEditing() {
   }
 }
 
-// ======================================================
-// ✏️ Chỉnh chữ trực tiếp
-// ======================================================
 function enableTextEditing() {
   const selector =
     "h1, h2, h3, p.subtitle, .item, .section-title, .trade-box li, .trade-box h2";
@@ -264,7 +224,7 @@ function enableTextEditing() {
           el.contentEditable = "false";
           el.style.outline = "none";
           hasChanges = true;
-          showSaveButton(); // ✅ Đã có hàm, không còn lỗi
+          showSaveButton();
         },
         { once: true }
       );
@@ -272,9 +232,6 @@ function enableTextEditing() {
   });
 }
 
-// ======================================================
-// 💾 Lưu toàn bộ thay đổi (cả chữ và giá)
-// ======================================================
 saveAllBtn.addEventListener("click", async () => {
   try {
     const items = {};
@@ -327,9 +284,6 @@ saveAllBtn.addEventListener("click", async () => {
   }
 });
 
-// ======================================================
-// 🔔 Custom Alert
-// ======================================================
 function showCustomAlert(msg) {
   const alertBox = document.getElementById("customAlert");
   const alertMessage = document.getElementById("alertMessage");
@@ -339,3 +293,4 @@ function showCustomAlert(msg) {
     alertBox.classList.add("hidden");
   }, 2500);
 }
+
