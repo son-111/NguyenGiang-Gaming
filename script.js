@@ -296,6 +296,14 @@ function showCustomAlert(msg) {
     alertBox.classList.add("hidden");
   }, 2500);
 }
+function showCustomAlert(message) {
+  document.getElementById("alertText").innerText = message;
+  document.getElementById("customAlertBox").style.display = "flex";
+}
+
+function closeCustomAlert() {
+  document.getElementById("customAlertBox").style.display = "none";
+}
 
 
 
