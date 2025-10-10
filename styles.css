@@ -596,3 +596,169 @@ body.modal-active {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+.alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.25s ease;
+}
+
+.alert-content {
+  position: relative;
+  background: radial-gradient(circle at top, #101820, #0b0b0c);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.3),
+              inset 0 0 20px rgba(0, 200, 255, 0.1);
+  border-radius: 18px;
+  padding: 28px 36px;
+  text-align: center;
+  color: #eafaff;
+  font-family: 'Orbitron', sans-serif;
+  max-width: 360px;
+  width: 90%;
+  transform: scale(0.9);
+  animation: popIn 0.35s ease forwards;
+}
+
+.alert-icon {
+  font-size: 50px;
+  color: #00eaff;
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px #00eaff, 0 0 30px #00eaff;
+  animation: pulseGlow 1.5s infinite ease-in-out;
+}
+
+.alert-content p {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.alert-content button {
+  padding: 10px 28px;
+  background: linear-gradient(135deg, #00eaff, #0077ff);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.alert-content button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #0077ff, #00eaff);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { text-shadow: 0 0 10px #00eaff, 0 0 25px #00eaff; }
+  50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00eaff; }
+}
+#saveAllBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #00eaff, #0077ff);
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 0 15px rgba(0, 234, 255, 0.5), inset 0 0 6px rgba(0,255,255,0.4);
+  cursor: pointer;
+  display: none;
+  z-index: 9999;
+  transition: all 0.25s ease-in-out;
+  letter-spacing: 0.5px;
+}
+#saveAllBtn:hover {
+  transform: scale(1.08);
+  background: linear-gradient(135deg, #0077ff, #00eaff);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+}
+#saveAllBtn::before {
+  margin-right: 8px;
+  font-size: 17px;
+}
+header .datetime-box {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: rgba(0, 20, 30, 0.5);
+  padding: 10px 15px;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0,255,200,0.3);
+  backdrop-filter: blur(6px);
+}
+
+header .datetime-box #datetime {
+  font-size: 16px;
+  font-weight: 600;
+  color: #00ffc8;
+  text-shadow:
+    0 0 3px #00ffc8,
+    0 0 6px rgba(0,255,200,0.6),
+    0 0 15px rgba(0,255,200,0.3);
+}
+/* OFFLINE - đỏ neon */
+.status.offline {
+  font-weight: bold;
+  font-size: 18px;
+  color: #ff1a1a;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 5px #ff1a1a,
+    0 0 10px #ff3333,
+    0 0 20px #ff4d4d,
+    0 0 40px #ff0000,
+    0 0 80px #ff1a1a;
+  animation: neonPulseRed 1.5s infinite alternate;
+}
+
+@keyframes neonPulseRed {
+  from {
+    text-shadow: 0 0 5px #ff1a1a, 0 0 10px #ff3333, 0 0 20px #ff4d4d, 0 0 40px #ff0000;
+  }
+  to {
+    text-shadow: 0 0 10px #ff3333, 0 0 20px #ff6666, 0 0 30px #ff1a1a, 0 0 60px #ff0000, 0 0 90px #ff3333;
+  }
+}
+
+/* ONLINE - xanh neon */
+.status.online {
+  font-weight: bold;
+  font-size: 18px;
+  color: #00ff99;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 5px #00ff99,
+    0 0 10px #00ffaa,
+    0 0 20px #00ffcc,
+    0 0 40px #00ff66,
+    0 0 80px #00ff99;
+  animation: neonPulseGreen 1.5s infinite alternate;
+}
+
+@keyframes neonPulseGreen {
+  from {
+    text-shadow: 0 0 5px #00ff99, 0 0 10px #00ffaa, 0 0 20px #00ffcc, 0 0 40px #00ff66;
+  }
+  to {
+    text-shadow: 0 0 10px #00ffaa, 0 0 20px #00ffcc, 0 0 30px #00ff99, 0 0 60px #00ff66, 0 0 90px #00ffaa;
+  }
+}
+
+
