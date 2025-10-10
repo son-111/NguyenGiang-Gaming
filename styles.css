@@ -533,7 +533,7 @@ body.modal-active {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
   cursor: pointer;
-  display: none; /* Ẩn mặc định, chỉ hiện khi có thay đổi */
+  display: none;
   z-index: 999;
   transition: all 0.2s ease-in-out;
 }
@@ -542,3 +542,4 @@ body.modal-active {
   transform: scale(1.05);
   background: linear-gradient(135deg, #00c4d6, #00eaff);
 }
+
