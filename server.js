@@ -1,27 +1,20 @@
+
 import express from "express";
 import cors from "cors";
-import fetch from "node-fetch";
-npm install node-fetch
 
 const app = express();
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS Not Allowed"));
-    }
-  }
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.static("./"));
 app.use((req, res, next) => {
-  app.use((req, res, next) => {
-  res.set({
-    "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-    Pragma: "no-cache",
-    Expires: "0"
-  });
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  next();
+});
+
+
+app.use((req, res, next) => {
   console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
   next();
 });
@@ -38,11 +31,13 @@ app.use((req, res, next) => {
   next();
 });
 
+
 const SUPABASE_URL =
   process.env.SUPABASE_URL || "https://sblbnucttjbynhjhtsej.supabase.co/rest/v1";
 const SUPABASE_KEY =
   process.env.SUPABASE_KEY ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNibGJudWN0dGpieW5oamh0c2VqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTk1NTE1MiwiZXhwIjoyMDc1NTMxMTUyfQ.MgfB0g6O_kkGxIsMoib0f9nH9NOo3MMHdqVlJ397MDk"; // service_role key của bạn
+
 
 app.get("/api/data", async (req, res) => {
   try {
@@ -67,9 +62,11 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
+
 app.post("/api/data", async (req, res) => {
   try {
     if (!req.body) return res.status(400).json({ error: "Thiếu dữ liệu gửi lên" });
+
 
     const respOld = await fetch(`${SUPABASE_URL}/store?id=eq.main&select=*`, {
       headers: {
@@ -83,6 +80,7 @@ app.post("/api/data", async (req, res) => {
     if (oldDataArr.length > 0) {
       current = oldDataArr[0].json;
     }
+
 
     const merged = {
       status: req.body.status ?? current.status,
@@ -109,6 +107,7 @@ app.post("/api/data", async (req, res) => {
   }
 });
 
+
 app.get("/api/debug", async (req, res) => {
   try {
 
@@ -130,9 +129,8 @@ app.get("/api/debug", async (req, res) => {
   }
 });
 
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
   console.log(`✅ Server chạy tại: http://localhost:${PORT}`)
 );
-
-
