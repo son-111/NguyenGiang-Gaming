@@ -114,8 +114,8 @@ function handleLogin() {
 }
 
 submitLogin.addEventListener("click", handleLogin);
-document.getElementById("loginModal").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
+document.addEventListener("keypress", (e) => {
+  if (e.key === "Enter" && loginModal.style.display === "flex") {
     e.preventDefault();
     handleLogin();
   }
@@ -194,7 +194,6 @@ function afterLogin() {
     document.body.style.overflow = "";
     newPriceInput.value = "";
   }
-}
 
 function enableTextEditing() {
   const selector =
@@ -249,7 +248,11 @@ saveAllBtn.addEventListener("click", async () => {
     currentData.items = items;
     currentData.texts = texts;
 
-    await saveDataToServer(currentData);
+    await saveDataToServer({
+      ...currentData,
+      items,
+      texts
+    });
 
     const newData = await getDataFromServer();
     if (newData) {
@@ -293,4 +296,5 @@ function showCustomAlert(msg) {
     alertBox.classList.add("hidden");
   }, 2500);
 }
+
 
