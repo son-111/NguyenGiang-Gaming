@@ -33,8 +33,10 @@ app.use((req, res, next) => {
 });
 
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_KEY;
+console.log("ENV CHECK >>>", {
+  SUPABASE_URL: process.env.SUPABASE_URL,
+  SUPABASE_KEY: process.env.SUPABASE_KEY ? "✅ Loaded" : "❌ Missing"
+});
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   
 
@@ -141,4 +143,5 @@ async function testConnection() {
 }
 
 testConnection()
+
 
