@@ -48,12 +48,16 @@ async function saveDataToServer(data) {
 }
 
 function setStatus(state) {
+  if (!statusBox) return;
+
   if (state === "ONLINE") {
     statusBox.textContent = "🟢 ONLINE";
-    statusBox.style.color = "#0f0";
+    statusBox.classList.remove("offline");
+    statusBox.classList.add("online");
   } else {
     statusBox.textContent = "🔴 OFFLINE";
-    statusBox.style.color = "red";
+    statusBox.classList.remove("online");
+    statusBox.classList.add("offline");
   }
 }
 
@@ -304,6 +308,7 @@ function showCustomAlert(message) {
 function closeCustomAlert() {
   document.getElementById("customAlertBox").style.display = "none";
 }
+
 
 
 
