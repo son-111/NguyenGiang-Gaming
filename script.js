@@ -151,7 +151,7 @@ function afterLogin() {
   document.querySelectorAll(".price").forEach((el) => {
     el.addEventListener("click", () => {
       if (adminLevel < 1) {
-        alert("❌ Bạn cần đăng nhập Admin để chỉnh giá!");
+        alert("❌Không có quyền!");
         return;
       }
       currentPriceEl = el;
@@ -296,5 +296,6 @@ function showCustomAlert(msg) {
     alertBox.classList.add("hidden");
   }, 2500);
 }
+
 
 
