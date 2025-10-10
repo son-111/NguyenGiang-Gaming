@@ -545,3 +545,54 @@ body.modal-active {
   transform: scale(1.05);
   background: linear-gradient(135deg, #00c4d6, #00eaff);
 }
+.alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.alert-content {
+  background: #1c1b22;
+  color: #fff;
+  border: 2px solid #00eaff;
+  border-radius: 16px;
+  padding: 20px 30px;
+  box-shadow: 0 0 25px rgba(0,234,255,0.3);
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 320px;
+  animation: zoomIn 0.3s ease;
+}
+
+.alert-icon {
+  font-size: 40px;
+  color: #ff4d4d;
+  margin-bottom: 10px;
+}
+
+.alert-content button {
+  margin-top: 15px;
+  padding: 8px 22px;
+  background: linear-gradient(135deg, #00eaff, #0077ff);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.alert-content button:hover {
+  background: linear-gradient(135deg, #0077ff, #00eaff);
+  transform: scale(1.05);
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
