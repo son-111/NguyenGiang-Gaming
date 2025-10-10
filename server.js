@@ -1,6 +1,7 @@
 
 import express from "express";
 import cors from "cors";
+import { createClient } from '@supabase/supabase-js'
 
 const app = express();
 app.use(cors());
@@ -33,10 +34,11 @@ app.use((req, res, next) => {
 
 
 const SUPABASE_URL =
-  process.env.SUPABASE_URL || "https://sblbnucttjbynhjhtsej.supabase.co/rest/v1";
+  process.env.SUPABASE_URL
 const SUPABASE_KEY =
-  process.env.SUPABASE_KEY ||
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNibGJudWN0dGpieW5oamh0c2VqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTk1NTE1MiwiZXhwIjoyMDc1NTMxMTUyfQ.MgfB0g6O_kkGxIsMoib0f9nH9NOo3MMHdqVlJ397MDk"; // service_role key của bạn
+  process.env.SUPABASE_KEY
+export const supabase = createClient(supabaseUrl, supabaseKey)
+  
 
 
 app.get("/api/data", async (req, res) => {
@@ -134,3 +136,10 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
   console.log(`✅ Server chạy tại: http://localhost:${PORT}`)
 );
+async function testConnection() {
+  const { data, error } = await supabase.from('users').select('*')
+  if (error) console.error('Lỗi Supabase:', error)
+  else console.log('Dữ liệu:', data)
+}
+
+testConnection()
