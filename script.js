@@ -1,3 +1,5 @@
+
+
 let adminLevel = 0;
 let hasChanges = false;
 
@@ -47,6 +49,7 @@ async function saveDataToServer(data) {
   }
 }
 
+
 function setStatus(state) {
   if (!statusBox) return;
 
@@ -59,7 +62,10 @@ function setStatus(state) {
     statusBox.classList.remove("online");
     statusBox.classList.add("offline");
   }
+
+  localStorage.setItem("status", state);
 }
+
 
 window.addEventListener("load", async () => {
   const data = await getDataFromServer();
@@ -68,6 +74,7 @@ window.addEventListener("load", async () => {
   if (data && data.status) {
     setStatus(data.status);
   }
+
 
   if (data && data.items) {
     for (const [key, price] of Object.entries(data.items)) {
@@ -79,6 +86,7 @@ window.addEventListener("load", async () => {
     }
   }
 
+  // 📝 Hiển thị chữ
   if (data && data.texts) {
     for (const [key, value] of Object.entries(data.texts)) {
       const el = document.querySelector(`[data-edit-id='${key}']`);
@@ -86,6 +94,7 @@ window.addEventListener("load", async () => {
     }
   }
 });
+
 
 statusBox.addEventListener("click", async () => {
   if (adminLevel === 0) {
@@ -99,6 +108,7 @@ statusBox.addEventListener("click", async () => {
   }
 });
 
+
 closeLogin.addEventListener("click", () => {
   loginModal.style.display = "none";
   loginMsg.textContent = "";
@@ -108,7 +118,7 @@ function handleLogin() {
   const user = document.getElementById("username").value.trim();
   const pass = passwordInput.value.trim();
 
-  if (user === "abcdef80" && pass === "Zxc1230@@") {
+  if (user === "a" && pass === "a") {
     adminLevel = 1;
     showCustomAlert("✅ Đăng nhập thành công!");
     afterLogin();
@@ -118,8 +128,8 @@ function handleLogin() {
 }
 
 submitLogin.addEventListener("click", handleLogin);
-document.addEventListener("keypress", (e) => {
-  if (e.key === "Enter" && loginModal.style.display === "flex") {
+document.getElementById("loginModal").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
     e.preventDefault();
     handleLogin();
   }
@@ -133,6 +143,7 @@ togglePass?.addEventListener("click", () => {
       : '<i class="fa-solid fa-eye"></i>';
 });
 
+
 function showSaveButton() {
   saveAllBtn.style.display = "block";
 }
@@ -145,6 +156,8 @@ function afterLogin() {
   saveAllBtn.style.display = "block";
 }
 
+
+function enablePriceEditing() {
   const priceModal = document.getElementById("priceModal");
   const priceItemName = document.getElementById("priceItemName");
   const newPriceInput = document.getElementById("newPriceInput");
@@ -155,7 +168,7 @@ function afterLogin() {
   document.querySelectorAll(".price").forEach((el) => {
     el.addEventListener("click", () => {
       if (adminLevel < 1) {
-        alert("❌Không có quyền!");
+        alert("❌ Bạn cần đăng nhập Admin để chỉnh giá!");
         return;
       }
       currentPriceEl = el;
@@ -198,6 +211,8 @@ function afterLogin() {
     document.body.style.overflow = "";
     newPriceInput.value = "";
   }
+}
+
 
 function enableTextEditing() {
   const selector =
@@ -235,6 +250,7 @@ function enableTextEditing() {
   });
 }
 
+
 saveAllBtn.addEventListener("click", async () => {
   try {
     const items = {};
@@ -252,11 +268,7 @@ saveAllBtn.addEventListener("click", async () => {
     currentData.items = items;
     currentData.texts = texts;
 
-    await saveDataToServer({
-      ...currentData,
-      items,
-      texts
-    });
+    await saveDataToServer(currentData);
 
     const newData = await getDataFromServer();
     if (newData) {
@@ -308,8 +320,14 @@ function showCustomAlert(message) {
 function closeCustomAlert() {
   document.getElementById("customAlertBox").style.display = "none";
 }
-
-
-
-
-
+document.addEventListener("DOMContentLoaded", () => {
+  const statusBox = document.getElementById("statusBox");
+  if (statusBox) {
+    const saved = localStorage.getItem("status");
+    if (saved === "ONLINE") {
+      setStatus("ONLINE");
+    } else {
+      setStatus("OFFLINE");
+    }
+  }
+});
