@@ -16,18 +16,20 @@
       <div id="datetime"></div>
     </div>
     <nav class="navbar">
-      <div class="status" id="statusBox">🔴 OFFLINE</div>
+      <div id="statusBox" class="status">OFFLINE</div>
     </nav>
+    
   </header>
   <div id="customAlertBox" class="alert-overlay" style="display:none;">
   <div class="alert-content">
     <p id="alertText">Bạn cần đăng nhập Admin để chỉnh giá!</p>
     <button onclick="closeCustomAlert()">OK</button>
   </div>
-  </div>
-
+</div>
+  <!-- Nút lưu -->
   <button id="saveAllBtn">💾 Lưu thay đổi</button>
 
+  <!-- Modal đăng nhập -->
   <div class="login-modal" id="loginModal" style="display:none">
     <div class="login-box">
       <h2>🔐 Admin Login</h2>
@@ -44,12 +46,14 @@
     </div>
   </div>
 
+  <!-- Custom Alert -->
   <div id="customAlert" class="hidden">
     <div class="alert-box">
       <span id="alertMessage"></span>
     </div>
   </div>
 
+  <!-- Modal chỉnh giá -->
   <div class="price-modal" id="priceModal" style="display:none">
     <div class="price-box">
       <h2>Chỉnh Giá</h2>
@@ -62,6 +66,7 @@
     </div>
   </div>
 
+  <!-- Danh sách sản phẩm -->
   <section class="section">
     <h2 data-edit-id="section_1">Rise of the Abyssal</h2>
     <div class="items">
@@ -108,23 +113,24 @@
     <h2 data-edit-id="section_3">Secrets of the atlas</h2>
     <div class="items">
       <div class="card">
-        <h3 data-edit-id="card7_title">Path Of Exile 1</h3>
-        <p class="item" data-edit-id="item_divine3">Divine Orb</p>
-        <p class="price" data-edit-id="price_divine3">inbox</p>
+        <h3 data-edit-id="card4_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_divine1">Divine Orb</p>
+        <p class="price" data-edit-id="price_divine1">inbox</p>
       </div>
       <div class="card">
-        <h3 data-edit-id="card8_title">Path Of Exile 1</h3>
-        <p class="item" data-edit-id="item_chao3">Chao Orb</p>
-        <p class="price" data-edit-id="price_chao3">inbox</p>
+        <h3 data-edit-id="card5_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_chao1">Chao Orb</p>
+        <p class="price" data-edit-id="price_chao1">inbox</p>
       </div>
       <div class="card">
-        <h3 data-edit-id="card9_title">Path Of Exile 1</h3>
-        <p class="item" data-edit-id="item_mirror3">Mirror of Kalandra</p>
-        <p class="price" data-edit-id="price_mirror3">inbox</p>
+        <h3 data-edit-id="card6_title">Path Of Exile 1</h3>
+        <p class="item" data-edit-id="item_mirror1">Mirror of Kalandra</p>
+        <p class="price" data-edit-id="price_mirror1">inbox</p>
       </div>
     </div>
   </section> 
 
+  <!-- Box giao dịch -->
   <section class="trade-container">
     <div class="trade-box">
       <h2 data-edit-id="trade_title1">Phương thức giao dịch</h2>
@@ -201,8 +207,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
