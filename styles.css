@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap&subset=vietnamese');
 
 body {
   margin: 0;
-  font-family: 'Audiowide', sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
   min-height: 100vh;
   background: url("5.jpg") no-repeat center bottom;
   background-size: cover;
   background-attachment: fixed;
   color: #fff;
+  
 }
 #content {
   position: relative;
