@@ -86,7 +86,6 @@ window.addEventListener("load", async () => {
     }
   }
 
-  // 📝 Hiển thị chữ
   if (data && data.texts) {
     for (const [key, value] of Object.entries(data.texts)) {
       const el = document.querySelector(`[data-edit-id='${key}']`);
@@ -118,7 +117,7 @@ function handleLogin() {
   const user = document.getElementById("username").value.trim();
   const pass = passwordInput.value.trim();
 
-  if (user === "abcdef80" && pass === "Zxc1230@@") {
+  if (user === "a" && pass === "a") {
     adminLevel = 1;
     showCustomAlert("✅ Đăng nhập thành công!");
     afterLogin();
@@ -331,4 +330,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
-
