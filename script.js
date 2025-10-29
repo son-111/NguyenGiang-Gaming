@@ -115,7 +115,7 @@ function handleLogin() {
   const user = document.getElementById("username").value.trim();
   const pass = passwordInput.value.trim();
 
-  if (user === "a" && pass === "a") {
+  if (user === "abcdef80" && pass === "Zxc1230@@") {
     adminLevel = 1;
     showCustomAlert("✅ Đăng nhập thành công!");
     afterLogin();
@@ -328,3 +328,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
