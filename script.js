@@ -1,5 +1,3 @@
-
-
 let adminLevel = 0;
 let hasChanges = false;
 
@@ -99,10 +97,9 @@ statusBox.addEventListener("click", async () => {
   if (adminLevel === 0) {
     loginModal.style.display = "flex";
   } else {
-    const newStatus = statusBox.textContent.includes("ONLINE")
-      ? "OFFLINE"
-      : "ONLINE";
+    const newStatus = statusBox.textContent.includes("ONLINE") ? "OFFLINE" : "ONLINE";
     setStatus(newStatus);
+    currentData.status = newStatus;            // <-- THÊM DÒNG NÀY
     await saveDataToServer({ ...currentData, status: newStatus });
   }
 });
@@ -267,7 +264,7 @@ saveAllBtn.addEventListener("click", async () => {
     currentData.items = items;
     currentData.texts = texts;
 
-    await saveDataToServer(currentData);
+    await saveDataToServer({ items, texts });
 
     const newData = await getDataFromServer();
     if (newData) {
@@ -277,13 +274,13 @@ saveAllBtn.addEventListener("click", async () => {
       if (newData.items) {
         document.querySelectorAll(".price").forEach((el) => {
           const itemKey =
-            el.previousElementSibling?.textContent.trim() ||
-            el.dataset.editId;
+            el.previousElementSibling?.textContent.trim() || el.dataset.editId;
           if (newData.items[itemKey]) {
             el.textContent = newData.items[itemKey];
           }
         });
       }
+
 
       if (newData.texts) {
         for (const [key, value] of Object.entries(newData.texts)) {
