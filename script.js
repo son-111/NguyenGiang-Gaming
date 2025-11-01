@@ -292,7 +292,7 @@ saveAllBtn.addEventListener("click", async () => {
     }
 
     hasChanges = false;
-    //saveAllBtn.style.display = "none";
+    saveAllBtn.style.display = "none";
     showCustomAlert("✅ Đã lưu thay đổi thành công!");
   } catch (err) {
     console.error("❌ Lỗi khi lưu dữ liệu:", err);
@@ -328,4 +328,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
 
